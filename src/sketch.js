@@ -3,7 +3,8 @@ import Star from './components/Star';
 import Moon from './components/Moon';
 import starMap from './utils/starMap';
 import p5 from './utils/p5';
-const { color, createCanvas, smooth, createGraphics, image, resizeCanvas } = p5;
+import Globe from './components/Globe';
+const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton } = p5;
 
 const hillOpts = () => [
   {
@@ -33,6 +34,9 @@ let bg;
 let hills;
 let stars;
 let moon;
+let globe;
+let button;
+let shakeTimer = 0;
 
 export function setup({ windowWidth, windowHeight }) {
   createCanvas(windowWidth, windowHeight);
@@ -41,6 +45,9 @@ export function setup({ windowWidth, windowHeight }) {
   buildBackground();
   generateStarfield();
   moon = new Moon({ x: 100, y: 100 });
+  globe = new Globe();
+  button = createButton('Shake the Drings!');
+  button.mousePressed(shakeGlobe);
 }
 
 function buildBackground() {
@@ -69,6 +76,7 @@ export function draw() {
   stars.forEach(s => s.draw());
   moon.draw();
   hills.forEach(h => h.draw());
+  globe.draw();
 }
 
 export function windowResized({ windowWidth, windowHeight }) {
@@ -76,4 +84,12 @@ export function windowResized({ windowWidth, windowHeight }) {
   hills.forEach((h) => h.calc());
   buildBackground();
   generateStarfield();
+  globe.render();
+}
+
+function shakeGlobe() {
+  const shakeTime = 5000;
+  globe.shake();
+  if (shakeTimer) clearInterval(shakeTimer);
+  shakeTimer = setTimeout(() => globe.place(), shakeTime);
 }
