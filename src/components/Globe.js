@@ -16,6 +16,7 @@ const {
   random,
   translate,
   scale,
+  rotate,
   CENTER,
   CORNER,
   PI,
@@ -88,6 +89,7 @@ export default class Globe extends FlexiClass {
     push();
     imageMode(CENTER)
     translate(this.x + (this.shaking ? random(-5, 5) : 0), this.y + (this.shaking ? random(-10, 10) : 0))
+    if (this.shaking) rotate(random(-PI/20, PI/20));
     scale(this.width);
     image(this.images.snowscene, 0.02, 0.15, snowSceneScale, snowSceneScale * aspect(this.images.snowscene));
     push();

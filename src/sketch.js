@@ -4,7 +4,7 @@ import Moon from './components/Moon';
 import starMap from './utils/starMap';
 import p5 from './utils/p5';
 import Globe from './components/Globe';
-const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage } = p5;
+const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage, text, frameRate } = p5;
 
 const hillOpts = () => [
   {
@@ -46,6 +46,7 @@ export function preload() {
 
 export function setup({ windowWidth, windowHeight }) {
   createCanvas(windowWidth, windowHeight);
+  frameRate(25);
   hills = hillOpts().map((o) => new Hills({ ...o }));
   smooth();
   buildBackground();
