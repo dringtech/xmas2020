@@ -7,10 +7,15 @@ button {
   font-size: 30px;
   padding: 0 1em;
   border-radius: 1em;
+  box-shadow: 10px 10px 10px hsla(0, 0%, 0%, 0.5);
   background-color: #c00;
   color: white;
   border: 0;
   position: fixed;
-  bottom: 1em;
-  left: 1em;
+  top: 30px;
+  right: 30px;
+}
+button:active {
+  top: 35px;
+  box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.5);
 }

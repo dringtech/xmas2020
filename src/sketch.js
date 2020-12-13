@@ -52,7 +52,7 @@ export function setup({ windowWidth, windowHeight }) {
   generateStarfield();
   moon = new Moon({ x: 100, y: 100 });
   globe = new Globe({ images });
-  button = createButton('Shake the Drings!');
+  button = createButton('Press to shake the Drings!');
   button.mousePressed(shakeGlobe);
 }
 
