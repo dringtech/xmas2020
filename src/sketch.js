@@ -4,7 +4,7 @@ import Moon from './components/Moon';
 import starMap from './utils/starMap';
 import p5 from './utils/p5';
 import Globe from './components/Globe';
-const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton } = p5;
+const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage } = p5;
 
 const hillOpts = () => [
   {
@@ -37,6 +37,12 @@ let moon;
 let globe;
 let button;
 let shakeTimer = 0;
+const images = {};
+
+export function preload() {
+  images.globe = loadImage('assets/globe.png');
+  images.snowscene = loadImage('assets/snowscene.png');
+}
 
 export function setup({ windowWidth, windowHeight }) {
   createCanvas(windowWidth, windowHeight);
@@ -45,14 +51,14 @@ export function setup({ windowWidth, windowHeight }) {
   buildBackground();
   generateStarfield();
   moon = new Moon({ x: 100, y: 100 });
-  globe = new Globe();
+  globe = new Globe({ images });
   button = createButton('Shake the Drings!');
   button.mousePressed(shakeGlobe);
 }
 
 function buildBackground() {
   bg = createGraphics(p5.width, p5.height);
-  bg.background(color('hsb(240, 80%, 20%)'));
+  bg.background(color('hsl(240, 80%, 12%)'));
 }
 
 function generateStarfield() {
@@ -84,7 +90,7 @@ export function windowResized({ windowWidth, windowHeight }) {
   hills.forEach((h) => h.calc());
   buildBackground();
   generateStarfield();
-  globe.render();
+  globe.resize();
 }
 
 function shakeGlobe() {

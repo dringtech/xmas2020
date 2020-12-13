@@ -2,6 +2,10 @@ import FlexiClass from '../utils/FlexiClass';
 import p5 from '../utils/p5';
 import Snowflake from './Snowflake';
 
+const globeScale = 1.07;
+const snowSceneScale = 0.8;
+const aspect = (o) => o.height / o.width;
+
 const {
   createGraphics,
   image,
@@ -11,6 +15,7 @@ const {
   color,
   random,
   translate,
+  scale,
   CENTER,
   CORNER,
   PI,
@@ -21,7 +26,7 @@ export default class Globe extends FlexiClass {
     super(props, () => ({
       width: Math.min(p5.width, p5.height) * 0.7,
       stroke: color(40),
-      fill: color('hsla(240, 50%, 50%, 0.1)'),
+      fill: color('hsla(240, 50%, 50%, 0.2)'),
       margin: 10,
       x: p5.width / 2,
       y: p5.height / 2,
@@ -67,24 +72,30 @@ export default class Globe extends FlexiClass {
   activateFlakes() {
     this.snow.forEach(s => s.release());
   }
-
-  render() {
+  resize() {
     this.parseOpts();
     this.activateFlakes();
-    const g = createGraphics(this.width + 2 * this.margin, this.width + 2 * this.margin);
+  }
+  render() {
+    const g = createGraphics(1000, 1000);
     g.fill(this.fill);
-    g.stroke(this.stroke);
-    g.strokeWeight(3);
+    g.noStroke();
     g.ellipseMode(CORNER);
-    g.ellipse(this.margin, this.margin, this.width)
-    this.image = g;
+    g.ellipse(0, 0, 1000)
+    this.glass = g;
   }
   draw() {
     push();
     imageMode(CENTER)
     translate(this.x + (this.shaking ? random(-5, 5) : 0), this.y + (this.shaking ? random(-10, 10) : 0))
-    this.snow.forEach(s => s.draw());
-    image(this.image, 0, 0);
+    scale(this.width);
+    image(this.images.snowscene, 0.02, 0.15, snowSceneScale, snowSceneScale * aspect(this.images.snowscene));
+    push();
+      scale(1/this.width);
+      this.snow.forEach(s => s.draw());
+    pop();
+    image(this.glass, 0, 0, 1, 1);
+    image(this.images.globe, 0.007, 0.07, globeScale, globeScale * aspect(this.images.globe));
     pop();
   }
   shake() {

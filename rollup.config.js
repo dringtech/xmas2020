@@ -95,7 +95,7 @@ export default [
         ],
       }),
       copy({
-        // targets: [{ src: 'src/index.html', dest: outputDir }],
+        targets: [{ src: 'src/assets/', dest: outputDir }],
       }),
       !production && serve(),
       !production && livereload('docs'),

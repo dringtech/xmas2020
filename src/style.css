@@ -1,5 +1,6 @@
 body {
-  margin: 0;
+  margin: 0;  
+  background-color: hsl(240, 80%, 12%);
 }
 button {
   font-family: 'Mountains of Christmas', cursive;
