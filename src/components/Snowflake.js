@@ -103,6 +103,5 @@ export default class Snowflake extends FlexiClass {
   agitate(size) {
     this.agitateSize = size / 20;
     this.mode = flakeModes.FLURRY;
-    console.log('FLURRYING');
   }
 }

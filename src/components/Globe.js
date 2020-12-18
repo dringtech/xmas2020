@@ -1,10 +1,11 @@
 import FlexiClass from '../utils/FlexiClass';
 import p5 from '../utils/p5';
 import Snowflake from './Snowflake';
+import Family from './Family';
+import aspect from '../utils/aspect';
 
 const globeScale = 1.07;
 const snowSceneScale = 0.8;
-const aspect = (o) => o.height / o.width;
 
 const {
   createGraphics,
@@ -34,6 +35,7 @@ export default class Globe extends FlexiClass {
       numFlakes: 200,
       shaking: false,
     }));
+    this.family = new Family();
     this.generateFlakes();
     this.render();
   }
@@ -93,6 +95,9 @@ export default class Globe extends FlexiClass {
     scale(this.width);
     image(this.images.snowscene, 0.02, 0.15, snowSceneScale, snowSceneScale * aspect(this.images.snowscene));
     push();
+    image(this.family.image(), 0.05, 0, 0.6, 0.6*aspect(this.family.image()));
+    pop();
+    push();
       scale(1/this.width);
       this.snow.forEach(s => s.draw());
     pop();
@@ -103,9 +108,11 @@ export default class Globe extends FlexiClass {
   shake() {
     this.shaking = true;
     this.snow.forEach((s) => s.agitate(this.width));
+    this.family.shake();
   }
   place() {
     this.shaking = false;
     this.activateFlakes();
+    this.family.sing();
   }
 }

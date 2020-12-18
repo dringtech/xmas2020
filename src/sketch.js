@@ -4,7 +4,9 @@ import Moon from './components/Moon';
 import starMap from './utils/starMap';
 import p5 from './utils/p5';
 import Globe from './components/Globe';
-const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage, text, frameRate } = p5;
+import images from './utils/imageStore';
+
+const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage, frameRate } = p5;
 
 const hillOpts = () => [
   {
@@ -37,11 +39,28 @@ let moon;
 let globe;
 let button;
 let shakeTimer = 0;
-const images = {};
 
 export function preload() {
   images.globe = loadImage('assets/globe.png');
   images.snowscene = loadImage('assets/snowscene.png');
+  
+  images.g = {
+    sing: loadImage('assets/g-singing.png'),
+    shake: loadImage('assets/g-shaking.png'),
+  };
+  images.r = {
+    sing: loadImage('assets/r-singing.png'),
+    shake: loadImage('assets/r-shaking.png'),
+  };
+  images.m = {
+    sing: loadImage('assets/m-singing.png'),
+    shake: loadImage('assets/m-shaking.png'),
+  };
+  images.b = {
+    sing: loadImage('assets/b-singing.png'),
+    shake: loadImage('assets/b-shaking.png'),
+  };
+  images.family = loadImage('assets/family-group.png');
 }
 
 export function setup({ windowWidth, windowHeight }) {
