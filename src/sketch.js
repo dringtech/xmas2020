@@ -1,10 +1,12 @@
 import Hills from './components/Hills'
 import Star from './components/Star';
 import Moon from './components/Moon';
+import MusicPlayer from './components/MusicPlayer';
 import starMap from './utils/starMap';
 import p5 from './utils/p5';
 import Globe from './components/Globe';
 import images from './utils/imageStore';
+import score from './score.json';
 
 const { color, createCanvas, smooth, createGraphics, image, resizeCanvas, createButton, loadImage, frameRate } = p5;
 
@@ -38,7 +40,9 @@ let stars;
 let moon;
 let globe;
 let button;
+let musicButton;
 let shakeTimer = 0;
+let musicPlayer;
 
 export function preload() {
   images.globe = loadImage('assets/globe.png');
@@ -72,8 +76,14 @@ export function setup({ windowWidth, windowHeight }) {
   generateStarfield();
   moon = new Moon({ x: 100, y: 100 });
   globe = new Globe({ images });
+  musicPlayer = new MusicPlayer({ score });
+
   button = createButton('Press to shake the Drings!');
+  button.class('shake');
   button.mousePressed(shakeGlobe);
+  musicButton = createButton('Play music');
+  musicButton.class('music');
+  musicButton.mousePressed(stopStartMusic);
 }
 
 function buildBackground() {
@@ -116,6 +126,20 @@ export function windowResized({ windowWidth, windowHeight }) {
 function shakeGlobe() {
   const shakeTime = 5000;
   globe.shake();
+  musicPlayer.speedUp();
   if (shakeTimer) clearInterval(shakeTimer);
-  shakeTimer = setTimeout(() => globe.place(), shakeTime);
+  shakeTimer = setTimeout(() => {
+    globe.place();
+    musicPlayer.slowDown();
+  }, shakeTime);
+}
+
+function stopStartMusic() {
+  if (musicPlayer.running) {
+    musicPlayer.pause();
+    musicButton.elt.textContent = 'Play music';
+    return;
+  }
+  musicPlayer.start()
+  musicButton.elt.textContent = 'Pause music';
 }

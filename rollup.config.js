@@ -5,6 +5,7 @@ import html from '@rollup/plugin-html';
 import styles from 'rollup-plugin-styles';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -38,10 +39,12 @@ const outputDir = 'docs';
 export default [
   {
     input: 'src/main.js',
+    external: [ 'p5' ],
     output: {
       file: `${outputDir}/bundle.js`,
       format: 'iife',
       assetFileNames: '[name]-[hash][extname]',
+      globals: { p5: 'p5' },
     },
     plugins: [
       resolve(),
@@ -51,6 +54,7 @@ export default [
         sourceMap: true,
         minimize: production,
       }),
+      json(),
       html({
         title: 'Merry Christmas from The Drings',
         template: ({ attributes, bundle, files, publicPath, title, meta }) => {
@@ -79,6 +83,8 @@ export default [
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap" rel="stylesheet"> 
     ${links}
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/addons/p5.sound.min.js"></script>
   </head>
   <body>
     <main></main>
