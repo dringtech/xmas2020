@@ -22,7 +22,7 @@ export default class MusicPlayer extends FlexiClass {
     this.soundLoop.pause();
   }
   speedUp() {
-    this.soundLoop.bpm = 240;
+    this.soundLoop.bpm = 360;
   }
   slowDown() {
     this.soundLoop.bpm = 120;

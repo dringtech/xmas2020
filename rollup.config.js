@@ -45,6 +45,7 @@ export default [
       format: 'iife',
       assetFileNames: '[name]-[hash][extname]',
       globals: { p5: 'p5' },
+      name: 'card',
     },
     plugins: [
       resolve(),
@@ -88,6 +89,26 @@ export default [
   </head>
   <body>
     <main></main>
+    <aside class="info" data-hidden>
+      <p>
+        We've decided to donate money to Barnardo's in lieu of sending
+        Christmas cards this year. 2020 has been a tough and unsettling
+        year for everyone, but particularly so for vulnerable children
+        and young people.
+      </p>
+      <p>
+        <a href="https://www.barnardos.org.uk/donate-to-kidsmas">
+          <img data-small-image
+            src="https://donate.barnardos.org.uk/packs/media/components/Header/static/logo-eb4cdcc12caa68099e1a4aca7ef819c5.svg" 
+            title="Barnardo's: Believe in Children">
+        </a>
+      </p>
+      <p>
+        We wish you a restful Christmas and a hopeful New Year! With all our love, The Drings!
+      </p>
+      <button data-action='close-info'>Close card</button>
+    </aside>
+    <button data-action='show-info' data-position='BL'>Open card</button>
     ${scripts}
   </body>
 </html>`;
@@ -98,10 +119,19 @@ export default [
             name: 'viewport',
             content: 'width=device-width, initial-scale=1.0',
           },
+          { name: "twitter:card", content: "summary_large_image" },
+          { property: "og:title", content: "Merry Christmas 2020 from The Drings!" },
+          { property: "og:url", content: "https://christmas2020.dring.tech/" },
+          { property: "og:description", content: "We're donating to Barnardo's in lieu of sending cards this year. Visit the site to shake us about in our bubble!" },
+          { property: "og:image", content: "https://christmas2020.dring.tech/assets/social-preview.png" },
+          { property: "og:locale", content: "en_GB" },
         ],
       }),
       copy({
-        targets: [{ src: 'src/assets/', dest: outputDir }],
+        targets: [
+          { src: 'src/assets/', dest: outputDir },
+          { src: 'src/CNAME', dest: outputDir },
+        ],
       }),
       !production && serve(),
       !production && livereload('docs'),

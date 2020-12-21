@@ -1,34 +1,74 @@
 body {
   margin: 0;  
   background-color: hsl(240, 80%, 12%);
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 25px;
+}
+main, [role=main] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
 }
 button {
   font-family: 'Mountains of Christmas', cursive;
-  font-size: 30px;
+  font-size: 2rem;
   padding: 0 1em;
   border-radius: 1em;
   box-shadow: 10px 10px 10px hsla(0, 0%, 0%, 0.5);
   background-color: #c00;
   color: white;
   border: 0;
-  position: fixed;
 }
 button:active {
   box-shadow: 5px 5px 10px hsla(0, 0%, 0%, 0.5);
 }
 
-.shake {
+.info {
+  background: #fffff0;
+  position: relative;
+  z-index: 100;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  text-align: center;
+  padding: 2em;
+  border-radius: 2em;
+  box-shadow: 10px 10px 10px hsla(0, 0%, 0%, 0.5);
+}
+
+[data-small-image] {
+  width: 200px;
+}
+
+[data-hidden] {
+  display: none;
+}
+
+[data-position="BR"] {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+[data-position="BR"]:active {
+  bottom: 25px;
+}
+
+[data-position="BL"] {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+}
+[data-position="BL"]:active {
+  bottom: 25px;
+}
+
+[data-position="TR"] {
+  position: fixed;
   top: 30px;
   right: 30px;
 }
-.shake:active {
+[data-position="TR"]:active {
   top: 35px;
-}
-
-.music {
-  bottom: 30px;
-  right: 30px;
-}
-.music:active {
-  bottom: 25px;
 }

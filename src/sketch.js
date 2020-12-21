@@ -78,11 +78,11 @@ export function setup({ windowWidth, windowHeight }) {
   globe = new Globe({ images });
   musicPlayer = new MusicPlayer({ score });
 
-  button = createButton('Press to shake the Drings!');
-  button.class('shake');
+  button = createButton('Press to shake The Drings!');
+  button.attribute('data-position', 'TR');
   button.mousePressed(shakeGlobe);
   musicButton = createButton('Play music');
-  musicButton.class('music');
+  musicButton.attribute('data-position', 'BR');
   musicButton.mousePressed(stopStartMusic);
 }
 
