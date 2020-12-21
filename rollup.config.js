@@ -110,6 +110,7 @@ export default [
     </aside>
     <button data-action='show-info' data-position='BL'>Open card</button>
     ${scripts}
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2653307bbe9849d89e61f56d7af0a4ce"}'></script><!-- End Cloudflare Web Analytics -->
   </body>
 </html>`;
         },
